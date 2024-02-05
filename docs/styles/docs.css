@@ -35,6 +35,8 @@ nav ul{
     display: flex;
     list-style: none;
     gap: 1em;
+
+    border-radius: .5em;
 }
 
 ul{
@@ -53,6 +55,7 @@ a{
 img{
     max-width: 80vw;
     max-height: 50vh;
+    margin: 1em 0;
 }
 
 p{
