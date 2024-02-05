@@ -1,0 +1,36 @@
+{
+    "Niels": {
+        "Name": "Niels Aling",
+        "Age": 26,
+        "Country": "Netherlands",
+        "Languages": [
+            "Dutch",
+            "English"
+        ],
+        "Programming Languages": [
+            "Python",
+            "JavaScript",
+            "HTML",
+            "CSS"
+        ],
+        "Tools": [
+            "VSCode",
+            "Git",
+            "GitHub",
+            "Node.js",
+            "MongoDB"
+        ],
+        "Hobbies": [
+            "Coding",
+            "Gaming",
+            "Watching Anime"
+        ],
+        "Socials": [
+            {
+                "Github": "",
+                "LinkedIn": "",
+                "Discord": ""
+            }
+        ]
+    }
+}
