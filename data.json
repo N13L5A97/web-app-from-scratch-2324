@@ -11,25 +11,34 @@
             "Python",
             "JavaScript",
             "HTML",
-            "CSS"
+            "CSS",
+            "C++"
         ],
         "Tools": [
             "VSCode",
             "Git",
             "GitHub",
             "Node.js",
-            "MongoDB"
+            "MongoDB",
+            "React",
+            "Express",
+            "Next.js",
+            "Figma",
+            "Adobe CC",
+            "Miro",
+            "Webflow"
         ],
         "Hobbies": [
             "Coding",
             "Gaming",
-            "Watching Anime"
+            "Watching Anime",
+            "Drumming"
         ],
         "Socials": [
             {
-                "Github": "",
-                "LinkedIn": "",
-                "Discord": ""
+                "Github": "https://github.com/N13L5A97",
+                "LinkedIn": "https://www.linkedin.com/in/niels-aling/",
+                "Discord": "http://discordapp.com/users/767661823855034368"
             }
         ]
     }
