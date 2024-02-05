@@ -27,6 +27,7 @@ nav{
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 2em;
+    font-weight: bold;
     font-size: 2rem;
 }
 
@@ -36,6 +37,11 @@ ul{
 
 section{
     margin-bottom: 2em;
+}
+
+a{
+    text-decoration: none;
+    color: var(--secondary-color);
 }
 
 img{
