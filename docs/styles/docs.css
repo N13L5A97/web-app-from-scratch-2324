@@ -23,8 +23,6 @@ body{
 
 nav{
     background-color: var(--secondary-color);
-    color: var(--primary-color);
-
     margin-bottom: 1em;
     padding: 1em;
 
@@ -43,8 +41,13 @@ ul{
     list-style: none
 }
 
+nav a{
+    color: var(--primary-color);
+
+}
+
 nav a:active{
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 nav a:hover{
     color: var(--link-hover);
