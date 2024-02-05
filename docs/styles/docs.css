@@ -24,15 +24,15 @@ nav{
     background-color: var(--secondary-color);
     color: var(--primary-color);
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
     margin-bottom: 1em;
-    gap: 1em;
-    
+
     font-weight: bold;
     font-size: 1.5rem;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
 }
 
 ul{
