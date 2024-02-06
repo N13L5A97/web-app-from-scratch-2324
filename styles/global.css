@@ -67,10 +67,13 @@ nav{
     margin-left: 1em;
 }
 
-
 nav ul{
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1em;
+}
+
+ul{
+    list-style: none;
 }
