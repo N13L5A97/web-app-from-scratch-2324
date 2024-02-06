@@ -77,3 +77,8 @@ nav ul{
 ul{
     list-style: none;
 }
+
+.socials img{
+    height: 2em;
+    width: 2em;
+}
