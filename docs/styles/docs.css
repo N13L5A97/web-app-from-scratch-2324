@@ -33,7 +33,6 @@ nav{
 
 nav ul{
     display: flex;
-    list-style: none;
     gap: 1em;
 }
 
@@ -51,6 +50,7 @@ nav a:active{
 }
 nav a:hover{
     color: var(--link-hover);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 section{
