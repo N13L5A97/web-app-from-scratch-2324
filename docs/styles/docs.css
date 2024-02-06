@@ -46,11 +46,11 @@ nav a{
 }
 
 nav a:active{
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--link-hover);
 }
 nav a:hover{
     color: var(--link-hover);
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--link-hover);
 }
 
 section{
