@@ -6,6 +6,7 @@
     --text-color-dark: #121212;
 
     --font-family: 'Roboto', sans-serif;
+    --border-radius: .75rem;
 }
 
 *{
@@ -49,13 +50,17 @@ h2,h3,h4,h5{
     margin-bottom: .3em;
 }
 
+p{
+    margin-bottom: 1em;
+}
+
 .userInfo{
     display: flex;
     flex-direction: row;
     gap: 2em;
     padding: 1em;
     margin-left: 1em;
-    border-radius: .5em;
+    border-radius: var(--border-radius);
 }
 
 .userInfo > section{
@@ -80,7 +85,7 @@ nav{
     background-color: var(--tertiary-color);
     color: var(--text-color-light);
     padding: 1em;
-    border-radius: 0.5em;
+    border-radius: var(--border-radius);
     margin-left: 1em;
 }
 
@@ -112,8 +117,10 @@ ul{
     max-height: 2.5em;
 }
 
-
-
 .socials img{
     max-height: 2em;
+}
+
+.locationContainer{
+    border-radius: var(--border-radius);
 }
