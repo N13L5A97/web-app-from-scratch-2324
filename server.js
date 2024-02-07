@@ -13,9 +13,10 @@ app.use(express.static("public"));
 
 app.get("/", async function (req, res) {
   try {
-    res.render("pages/index");
+    const playlists = await getMyPlaylists();
+    console.log(playlists);
+    res.render("pages/index", { playlists });
   } catch (error) {
-    // Handle errors here
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
@@ -67,6 +68,31 @@ var authOptions = {
   json: true,
 };
 
+const getMyPlaylists = async () => {
+  const response = await fetch(authOptions.url, {
+    method: "POST",
+    body: querystring.stringify(authOptions.form),
+    headers: authOptions.headers,
+  });
+
+  const token = await response.json();
+
+  const playlists = await fetch(
+    "https://api.spotify.com/v1/users/niels.aling/playlists",
+    {
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+      },
+    }
+  );
+
+  const playlistsJson = await playlists.json();
+  const playlistItems = playlistsJson.items;
+ 
+
+  return (playlistItems);
+};
+
 const getPlaylistsIds = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
@@ -115,11 +141,11 @@ const getPlaylistInfo = async () => {
         },
       }
     ).then(response => response.json());
-    console.log(playlist);
-
     playlists.push(playlist);
     
     }
+
+    // console.log(playlists);
     return playlists;
 };
 
