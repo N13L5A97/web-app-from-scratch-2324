@@ -10,13 +10,17 @@
           Here are one of my favorite playlists.
       </p>
       <section class="playlistContainer">
-        <!-- done by copilot but also found at https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652 -->
-        <% playlists.forEach(function(playlist) { %>
-          <article class="playlist">
-              <h3><%= playlist.playlistName  %></h3>
-              <a href="<%= playlist.playlistUrl  %>"> <img src= "<%= playlist.playlistImg  %>" alt="playlist cover">  </a>
-          </article>
-      </section>
+        <!-- found at https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652 -->
+        <% playlists.forEach((playlist)=>{
+            %>
+            <article>
+                <h3><%= playlist.name %></h3>
+                <a href="<%= playlist.external_urls.spotify %>"> listen to playlist </a>
+                <img src="<%= albumCover %>" alt="album cover">
+            </article>
+            <%
+        }) %>
+        </section>
   </section>
 
 </main>

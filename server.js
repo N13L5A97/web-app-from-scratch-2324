@@ -15,7 +15,7 @@ app.use(express.static("public"));
 app.get("/", async function (req, res) {
   try {
     const playlistInfo = await getPlaylist();
-    console.log(playlistInfo);
+    // console.log(playlistInfo);
     const user = playlistInfo.owner.display_name;
     res.render("pages/index", { user });
   } catch (error) {
@@ -47,6 +47,15 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
+app.get("/playlists", async function (req, res) {
+  const playlists = await getPlaylists();
+  const singlePlaylist = await getOne();
+  const albumCover = singlePlaylist.images[1].url;
+  console.log(albumCover);
+  res.render("pages/playlists", { playlists, albumCover });
+});
+
+
 // spotify token
 var authOptions = {
   url: "https://accounts.spotify.com/api/token",
@@ -54,7 +63,7 @@ var authOptions = {
     Authorization:
       "Basic " +
       new Buffer.from(client_id + ":" + client_secret).toString("base64"),
-    "Content-type": "application/x-www-form-urlencoded",
+      "Content-type": "application/x-www-form-urlencoded",
   },
   form: {
     grant_type: "client_credentials",
@@ -70,8 +79,6 @@ const getPlaylists = async () => {
   });
 
   const token = await response.json();
-  console.log("token =");
-  console.log(token.access_token);
 
   const playlists = await fetch(
     "https://api.spotify.com/v1/users/niels.aling/playlists",
@@ -83,15 +90,37 @@ const getPlaylists = async () => {
   );
 
   const playlistsJson = await playlists.json();
-  // console.log(playlistsJson);
+  const playlistItems = playlistsJson.items;
 
-  return playlistsJson;
+  return (playlistItems);
 };
 
-app.get("/playlists", async function (req, res) {
-  const playlists = await getPlaylists();
-  const playlistName = playlists.items.map((playlist) => playlist.name);
-  const playlistImg = playlists.items.map((playlist) => playlist.images[0].url);
-  const playlistUrl = playlists.items.map((playlist) => playlist.href);
-  res.render("pages/playlists", { playlistName, playlistImg, playlistUrl });
-});
+
+const getOne = async () => {
+  const response = await fetch(authOptions.url, {
+    method: "POST",
+    body: querystring.stringify(authOptions.form),
+    headers: authOptions.headers,
+  });
+
+  const token = await response.json();
+  // console.log("token =");
+  // console.log(token.access_token);
+
+  const allPlaylists = await getPlaylists();
+  const playlistId = allPlaylists[0].id;
+  const playlistIds = allPlaylists.map((playlist) => playlist.id);
+
+  const playlist = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}`,
+    {
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+      },
+    }
+  );
+
+  const playlistsJson = await playlist.json();
+
+  return (playlistsJson);
+};
