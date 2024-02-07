@@ -11,15 +11,17 @@
       </p>
       <section class="playlistContainer">
         <!-- found at https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652 -->
-        <% playlists.forEach((playlist)=>{
-            %>
+          <section class="playlist">
+            <% playlists.forEach(playlist => { %>
+              <article>
+                <h1><%= playlist.name %></h1>
+                <a href="<%= playlist.external_urls.spotify %>">  go to playlist</a>
+              </article>
+            <% }); %>
             <article>
-                <h3><%= playlist.name %></h3>
-                <a href="<%= playlist.external_urls.spotify %>"> listen to playlist </a>
-                <img src="<%= albumCover %>" alt="album cover">
+                <h1>Hallo</h1>
             </article>
-            <%
-        }) %>
+          </section>
         </section>
   </section>
 

@@ -1,7 +1,6 @@
 require("dotenv").config();
 const querystring = require("querystring");
 const express = require("express");
-const { get } = require("http");
 const app = express();
 const port = process.env.PORT;
 
@@ -14,10 +13,7 @@ app.use(express.static("public"));
 
 app.get("/", async function (req, res) {
   try {
-    const playlistInfo = await getPlaylist();
-    // console.log(playlistInfo);
-    const user = playlistInfo.owner.display_name;
-    res.render("pages/index", { user });
+    res.render("pages/index");
   } catch (error) {
     // Handle errors here
     console.error(error);
@@ -47,12 +43,12 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
+
+
 app.get("/playlists", async function (req, res) {
-  const playlists = await getPlaylists();
-  const singlePlaylist = await getOne();
-  const albumCover = singlePlaylist.images[1].url;
-  console.log(albumCover);
-  res.render("pages/playlists", { playlists, albumCover });
+  const playlists = await getPlaylistInfo();
+  console.log(playlists);
+  res.render("pages/playlists", { playlists });
 });
 
 
@@ -71,7 +67,7 @@ var authOptions = {
   json: true,
 };
 
-const getPlaylists = async () => {
+const getPlaylistsIds = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
     body: querystring.stringify(authOptions.form),
@@ -91,12 +87,13 @@ const getPlaylists = async () => {
 
   const playlistsJson = await playlists.json();
   const playlistItems = playlistsJson.items;
+  const playlistIds = playlistItems.map((playlist) => playlist.id);
 
-  return (playlistItems);
+  return (playlistIds);
 };
 
 
-const getOne = async () => {
+const getPlaylistInfo = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
     body: querystring.stringify(authOptions.form),
@@ -104,23 +101,26 @@ const getOne = async () => {
   });
 
   const token = await response.json();
-  // console.log("token =");
-  // console.log(token.access_token);
 
-  const allPlaylists = await getPlaylists();
-  const playlistId = allPlaylists[0].id;
-  const playlistIds = allPlaylists.map((playlist) => playlist.id);
+  const playlistIds = await getPlaylistsIds();
 
-  const playlist = await fetch(
-    `https://api.spotify.com/v1/playlists/${playlistId}`,
-    {
-      headers: {
-        Authorization: "Bearer " + token.access_token,
-      },
+  const playlists = [];
+
+  for (let i = 0; i < playlistIds.length; i++) {
+    const playlist = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistIds[i]}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token.access_token,
+        },
+      }
+    ).then(response => response.json());
+    console.log(playlist);
+
+    playlists.push(playlist);
+    
     }
-  );
-
-  const playlistsJson = await playlist.json();
-
-  return (playlistsJson);
+    return playlists;
 };
+
+getPlaylistInfo();
