@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head'); %>
+<body class="container">
+
+<main>
+  <section>
+      <h2>My Playlists</h2>
+      <p>
+          Here are one of my favorite playlists.
+      </p>
+      <section class="playlistContainer">
+        <!-- done by copilot but also found at https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652 -->
+        <% playlists.forEach(function(playlist) { %>
+          <article class="playlist">
+              <h3><%= playlist.playlistName  %></h3>
+              <a href="<%= playlist.playlistUrl  %>"> <img src= "<%= playlist.playlistImg  %>" alt="playlist cover">  </a>
+          </article>
+      </section>
+  </section>
+
+</main>
+
+</body>
+</html>
