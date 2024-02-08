@@ -15,6 +15,10 @@
     box-sizing: border-box;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     font-family: var(--font-family);
     position: relative;
@@ -40,6 +44,7 @@ main{
 
 main section{
     margin-bottom: 2em;
+    scroll-margin-top: 100px;
 }
 
 footer{
@@ -47,7 +52,7 @@ footer{
 }
 
 h2,h3,h4,h5{
-    margin-bottom: .3em;
+    margin-bottom: .5em;
 }
 
 p{
@@ -123,4 +128,10 @@ ul{
 
 .locationContainer{
     border-radius: var(--border-radius);
+}
+
+.playlistContainer{
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
 }
