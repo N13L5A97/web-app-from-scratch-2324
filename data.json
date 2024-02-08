@@ -40,6 +40,12 @@
                 "LinkedIn": "https://www.linkedin.com/in/niels-aling/",
                 "Discord": "http://discordapp.com/users/767661823855034368"
             }
+        ],
+        "images":[
+            {
+                "transparent": "./images/avatar_transparent.png",
+                "black": "./images/black.png"
+            }
         ]
     }
 }
