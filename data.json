@@ -1,51 +1,49 @@
 {
-    "Niels": {
-        "Name": "Niels Aling",
-        "Age": 26,
-        "Country": "Netherlands",
-        "Languages": [
-            "Dutch",
-            "English"
-        ],
-        "Programming Languages": [
-            "Python",
-            "JavaScript",
-            "HTML",
-            "CSS",
-            "C++"
-        ],
-        "Tools": [
-            "VSCode",
-            "Git",
-            "GitHub",
-            "Node.js",
-            "MongoDB",
-            "React",
-            "Express",
-            "Next.js",
-            "Figma",
-            "Adobe CC",
-            "Miro",
-            "Webflow"
-        ],
-        "Hobbies": [
-            "Coding",
-            "Gaming",
-            "Watching Anime",
-            "Drumming"
-        ],
-        "Socials": [
-            {
-                "Github": "https://github.com/N13L5A97",
-                "LinkedIn": "https://www.linkedin.com/in/niels-aling/",
-                "Discord": "http://discordapp.com/users/767661823855034368"
-            }
-        ],
-        "images":[
-            {
-                "transparent": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
-                "black": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_black.png"
-            }
-        ]
-    }
+    "name": "Niels Aling",
+    "age": 26,
+    "country": "Netherlands",
+    "languages": [
+        "Dutch",
+        "English"
+    ],
+    "programming languages": [
+        "Python",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "C++"
+    ],
+    "tools": [
+        "VSCode",
+        "Git",
+        "GitHub",
+        "Node.js",
+        "MongoDB",
+        "React",
+        "Express",
+        "Next.js",
+        "Figma",
+        "Adobe CC",
+        "Miro",
+        "Webflow"
+    ],
+    "hobbies": [
+        "Coding",
+        "Gaming",
+        "Watching Anime",
+        "Drumming"
+    ],
+    "socials": [
+        {
+            "github": "https://github.com/N13L5A97",
+            "linkedIn": "https://www.linkedin.com/in/niels-aling/",
+            "discord": "http://discordapp.com/users/767661823855034368"
+        }
+    ],
+    "images": [
+        {
+            "transparent": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
+            "black": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_black.png"
+        }
+    ]
 }

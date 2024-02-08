@@ -1,5 +1,7 @@
 require("dotenv").config();
+const fs = require("fs");
 const querystring = require("querystring");
+
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
@@ -11,10 +13,12 @@ const redirect_uri = `http://localhost:${port}/callback`;
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
+// home
 app.get("/", async function (req, res) {
   try {
     const playlists = await getMyPlaylists();
-    console.log(playlists);
+    // const userData = await fetchUserData();
+
     res.render("pages/index", { playlists });
   } catch (error) {
     console.error(error);
@@ -22,35 +26,55 @@ app.get("/", async function (req, res) {
   }
 });
 
+// login
 app.get("/login", function (req, res) {
-  var scope = "user-read-private user-read-email";
+  try{
+    var scope = "user-read-private user-read-email";
 
-  res.redirect(
-    "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id: client_id,
-        scope: scope,
-        redirect_uri: redirect_uri,
-      })
-  );
+    res.redirect(
+      "https://accounts.spotify.com/authorize?" +
+        querystring.stringify({
+          response_type: "code",
+          client_id: client_id,
+          scope: scope,
+          redirect_uri: redirect_uri,
+        })
+    );
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
+// callback after login
 app.get("/callback", async function (req, res) {
-  return res.send("You are logged in");
+  try{
+    return res.send("You are logged in");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-
-
+// not used
 app.get("/playlists", async function (req, res) {
-  const playlists = await getPlaylistInfo();
-  console.log(playlists);
-  res.render("pages/playlists", { playlists });
+  try{
+    const playlists = await getPlaylistInfo();
+    console.log(playlists);
+    res.render("pages/playlists", { playlists });
+  } catch {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
+
+// functions
 
 
 // spotify token
@@ -68,6 +92,7 @@ var authOptions = {
   json: true,
 };
 
+// using the token to get all playlists
 const getMyPlaylists = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
@@ -93,6 +118,8 @@ const getMyPlaylists = async () => {
   return (playlistItems);
 };
 
+
+//get id's of all the playlists
 const getPlaylistsIds = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
@@ -118,7 +145,7 @@ const getPlaylistsIds = async () => {
   return (playlistIds);
 };
 
-
+//get info of all the playlists
 const getPlaylistInfo = async () => {
   const response = await fetch(authOptions.url, {
     method: "POST",
@@ -149,4 +176,17 @@ const getPlaylistInfo = async () => {
     return playlists;
 };
 
-getPlaylistInfo();
+//fetch data from json file
+// const fetchUserData = async () => {
+//   fs.readFile("data.json", "utf8", (err, data) => {
+//     const userData = JSON.parse(data);
+//     console.log(userData.name);
+//     if (err) {
+//       console.error(err);
+//       return;
+//     }});
+
+//     return userData;
+// }
+
+// fetchUserData();
