@@ -186,6 +186,36 @@ after some styling it ended up like this:
 
 <img src="./docs/assets/playlists.png" alt="image of fetched playlist" height="300">
 
+## Avatar
+
+I wanted to create a cool avatar that represented me, but I'm not that good in creating that sort of things, so I wanted to try out Dall-e from Chat-gpt for this and see what it could make for me. My prompt was really simple: "give me a illustrated drum set".
+
+It came up with the following images:
+
+<img src="./docs/assets/dall-e01.png" alt="first try images from Dall-e" width="400">
+
+I found this to boring so I changed the prompt to "give me a pixelart drumset with purple, black and yellow.
+
+<img src="./docs/assets/dall-e02.png" alt="second try images from Dall-e" width="400">
+
+This was also not really what I was looking for so I changed the prompt again to "give me a cool illustrated drum set with a lightning bold on the bass drum, and the result were much better:
+
+<img src="./docs/assets/dall-e03.png" alt="third try images from Dall-e" width="400">
+
+I decided to make a variation on the third image:
+
+<img src="./docs/assets/dall-e04.png" alt="fourth try images from Dall-e" width="400">
+
+I wanted to go a little deeper and made another variation on the 4th image:
+
+<img src="./docs/assets/dall-e05.png" alt="fifth try images from Dall-e" width="400">
+
+I wasn't to happy about the results so I went back to the third prompt I gave and made a variation to the second image:
+
+<img src="./docs/assets/dall-e06.png" alt="fifth try images from Dall-e" width="400">
+
+This time I really liked the third image and decided to use this as an avatar. I made 2 versions of it to use, one with a black background and one with a transparent background that I could use for the team website.
+
 ## User Data
 
 With the team we decided to use our name, age, avatar and our Github, Discord and linkedIn socials as data for the team website. This also had to be the user data on my personal website, but just in case we would decide to add more data to the team website I made a Json file with all the data I could think of.
@@ -256,7 +286,46 @@ With the team we decided to use our name, age, avatar and our Github, Discord an
 }
 ```
 
+On the server side I created a function to fetch this data and send this to the homepage. For now I only use my name, age, work position, avatar and socials.
 
+```js
+// home
+app.get("/", async function (req, res) {
+    const userData = await fetchUserData();
+    const userImage = userData.images[0].black;
+    const userSocials = userData.socials;
+
+    console.log(userData);
+
+    res.render("pages/index", { userData, userImage, userSocials });
+});
+
+const fetchUserData = async () => {
+  try{
+    const data = fs.readFileSync("data.json", "utf8");
+    userData = JSON.parse(data);
+    return userData;
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+After sending it to the front-end I could implement it in the place I wanted it. In this case the title of the page (my name and age), my work position and my avatar.
+
+```html
+  <section class="userInfo">
+      <img src="<%= userImage %>" class="avatar" alt="avatar">
+      <section>
+          <h1><%= userData.name %> <span>(<%= userData.age %>)</span> </h1>
+          <p> <%= userData.work[0].position %> </p>
+      </section>
+  </section>
+```
+
+In the end it looked like this:
+
+<img src="./docs/assets/userdata.png" alt="image of userdata" height="100">
 
 ## Resources
 
@@ -265,3 +334,4 @@ With the team we decided to use our name, age, avatar and our Github, Discord an
 - [How to use EJS](https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application)
 - [How to use forEach loop EJS](https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652)
 - [Scroll Behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior)
+- [Dall-e](https://openai.com/dall-e-2)
