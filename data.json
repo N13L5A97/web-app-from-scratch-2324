@@ -43,8 +43,8 @@
         ],
         "images":[
             {
-                "transparent": "./images/avatar_transparent.png",
-                "black": "./images/black.png"
+                "transparent": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
+                "black": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_black.png"
             }
         ]
     }
