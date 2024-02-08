@@ -16,10 +16,10 @@
       </ul>
   </nav>
   <section class="userInfo">
-      <img src="" class="avatar" alt="avatar">
+      <img src="<%= userImage %>" class="avatar" alt="avatar">
       <section>
-          <h1> <span>(26)</span> </h1>
-          <p> Front-end Developer</p>
+          <h1><%= userData.name %> <span>( <%= userData.age %> )</span> </h1>
+          <p> <%= userData.work[0].position %> </p>
       </section>
   </section>
 </header>

@@ -24,7 +24,7 @@
         <% playlists.forEach(playlist => { %>
             <article>
               <h1><%= playlist.name %></h1>
-              <iframe src="https://open.spotify.com/embed/playlist/<%= playlist.id %>?utm_source=generator" width="70%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              <iframe src="https://open.spotify.com/embed/playlist/<%= playlist.id %>?utm_source=generator" width="0%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </article>
           <% }); %>
       </section>
@@ -35,9 +35,9 @@
   <section>
       <h2>Socials</h2>
       <article class="socials">
-          <a href=""> <img src="./assets/icons/linkedin_logo.svg" alt="LinkedIn Logo"></a>
-          <a href=""> <img src="./assets/icons/github_logo.svg" alt="Github Logo"></a>
-          <a href=""> <img src="./assets/icons/discord_logo.svg" alt="Discord Logo"></a>
+          <a href="<%= userSocials[0].linkedIn %>"> <img src="./assets/icons/linkedin_logo.svg" alt="LinkedIn Logo"></a>
+          <a href="<%= userSocials[0].github %>"> <img src="./assets/icons/github_logo.svg" alt="Github Logo"></a>
+          <a href="<%= userSocials[0].discord %>"> <img src="./assets/icons/discord_logo.svg" alt="Discord Logo"></a>
       </article>
   </section>
 </main>

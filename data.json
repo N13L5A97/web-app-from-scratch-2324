@@ -6,6 +6,20 @@
         "Dutch",
         "English"
     ],
+    "education": [
+        {
+            "school": "Hogeschool Rotterdam",
+            "degree": "Bachelor of Science",
+            "field": "Communication and Multimedia Design"
+        }
+    ],
+    "work": [
+        {
+            "company": "aardig",
+            "position": "Front-end Developer",
+            "duration": "2023 - Present"
+        }
+    ],
     "programming languages": [
         "Python",
         "JavaScript",
