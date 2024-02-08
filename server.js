@@ -23,6 +23,7 @@ app.get("/", async function (req, res) {
     console.log(userSocials[0].github);
 
     const playlists = await getMyPlaylists();
+    console.log(playlists[0].id);
 
     res.render("pages/index", { playlists, userData, userImage, userSocials });
 });
@@ -114,7 +115,6 @@ const getMyPlaylists = async () => {
   const playlistsJson = await playlists.json();
   const playlistItems = playlistsJson.items;
  
-
   return (playlistItems);
 };
 
