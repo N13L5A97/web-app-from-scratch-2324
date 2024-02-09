@@ -15,22 +15,24 @@ app.use(express.static("public"));
 
 // home
 app.get("/", async function (req, res) {
-    const userData = await fetchUserData();
-    const userImage = userData.images[0].black;
-    const userSocials = userData.socials;
+  //user data
+  const userData = await fetchUserData();
+  const userImage = userData.images[0].black;
+  const userSocials = userData.socials;
 
-    console.log("User data: ")
-    console.log(userSocials[0].github);
+  console.log("User data: ");
+  console.log(userSocials[0].github);
 
-    const playlists = await getMyPlaylists();
-    console.log(playlists[0].id);
+  //playlists
+  const playlists = await getMyPlaylists();
+  console.log(playlists[0].id);
 
-    res.render("pages/index", { playlists, userData, userImage, userSocials });
+  res.render("pages/index", { playlists, userData, userImage, userSocials });
 });
 
 // login
 app.get("/login", function (req, res) {
-  try{
+  try {
     var scope = "user-read-private user-read-email";
 
     res.redirect(
@@ -50,7 +52,7 @@ app.get("/login", function (req, res) {
 
 // callback after login
 app.get("/callback", async function (req, res) {
-  try{
+  try {
     return res.send("You are logged in");
   } catch (error) {
     console.error(error);
@@ -58,23 +60,23 @@ app.get("/callback", async function (req, res) {
   }
 });
 
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
 // not used
 app.get("/playlists", async function (req, res) {
-  try{
-    const playlists = await getPlaylistInfo();
-    console.log(playlists);
-    res.render("pages/playlists", { playlists });
-  } catch {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
+  const playlists = await getMyPlaylists();
+  res.json(playlists);
+  // try {
+  //   const playlists = await getPlaylistInfo();
+  //   console.log(playlists);
+  //   res.render("pages/playlists", { playlists });
+  // } catch {
+  //   console.error(error);
+  //   res.status(500).send("Internal Server Error");
+  // }
 });
-
 
 // FUNCTIONS
 
@@ -85,7 +87,7 @@ var authOptions = {
     Authorization:
       "Basic " +
       new Buffer.from(client_id + ":" + client_secret).toString("base64"),
-      "Content-type": "application/x-www-form-urlencoded",
+    "Content-type": "application/x-www-form-urlencoded",
   },
   form: {
     grant_type: "client_credentials",
@@ -114,8 +116,8 @@ const getMyPlaylists = async () => {
 
   const playlistsJson = await playlists.json();
   const playlistItems = playlistsJson.items;
- 
-  return (playlistItems);
+
+  return playlistItems;
 };
 
 //get id's of all the playlists (NOT USED)
@@ -169,7 +171,7 @@ const getMyPlaylists = async () => {
 //       }
 //     ).then(response => response.json());
 //     playlists.push(playlist);
-    
+
 //     }
 
 //     // console.log(playlists);
@@ -179,7 +181,7 @@ const getMyPlaylists = async () => {
 //fetch data from json file
 
 const fetchUserData = async () => {
-  try{
+  try {
     const data = fs.readFileSync("data.json", "utf8");
     userData = JSON.parse(data);
     return userData;

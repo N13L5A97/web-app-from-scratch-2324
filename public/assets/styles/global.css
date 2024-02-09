@@ -26,7 +26,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     gap: 2em;
-    min-height: 100vh;
+    max-height: 100vh;
 
     background-color: var(--primary-color);
     color: var(--text-color-light);
@@ -39,12 +39,20 @@ header{
 }
 
 main{
-    padding: 7em 10em 0 8em;
+    margin-top: 7em;
+    margin-left: 8em;
+    display: flex;
+    gap: 3em;
+    max-width: calc(100vw - 7em);
+    overflow-y: hidden;
 }
 
-main section{
-    margin-bottom: 2em;
-    scroll-margin-top: 100px;
+main > section{
+    scroll-margin-top: 7em;
+    /* scroll-margin-left: 7em; */
+    min-width: calc(100vw - 8em);
+    padding-right: 2em;
+    min-height: calc(100vh - 7em - 5em);
 }
 
 footer{
@@ -134,4 +142,9 @@ ul{
     display: flex;
     gap: 1em;
     flex-wrap: wrap;
+}
+
+.playlistContainer iframe{
+    height: 100%;
+    width: 100%;
 }
