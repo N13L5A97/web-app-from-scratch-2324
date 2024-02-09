@@ -327,6 +327,67 @@ In the end it looked like this:
 
 <img src="./docs/assets/userdata.png" alt="image of userdata" height="100">
 
+## Fetching Playlists in the Front-end
+
+At the moment I fetch all the data server-side but this is not necessary at all. And since I also need to fetch data in the front-end I had to make some changes in my code. At first I fetched my playlists and rendered them together with the page I should be on, now I just make the get request on the serverside.
+
+```js
+app.get("/playlists", async function (req, res) {
+  const playlists = await getMyPlaylists();
+  res.json(playlists);
+});
+```
+
+I made a folder for my scripts in the public folder so I can fetch this data in the front-end. I do this by fetching the url I just created, format it to json and return the data. Now I can access the data in the front-end.
+
+```js
+const getPlaylists = async () => {
+    const playlists = await fetch("http://localhost:3001/playlists");
+    const playlistsJson = await playlists.json();
+    console.log(playlistsJson);
+    return playlistsJson;
+};
+```
+
+After fetching the playlists I had to create a couple elements so I can put this in my HTML. In my code I say that for each playlist it can find make an article, a h3 heading and a iframe. Put the playlist name in the heading, put the iframe attributes in the iframe with the right playlist id and put both the iframe and the heading in the article. After that I find the section in my HTML where the articles should be placed and put them in there.
+
+I had some problems with inserting the iframe because it wouldn't insert into the HTML. I asked this to chatGPT and I found out I could only give the append child function one value so I had to insert them separately. I also didn't know how to give the iframe the right value's and found out that the frameborder
+should be inserted as an attribute. [Go to ChatGPT Conversation](https://chat.openai.com/share/5eebe267-1e5f-49f8-8e08-a02c68a417c7)
+
+```js
+const createPlaylist = async () => {
+    const playlists = await getPlaylists();
+
+    playlists.forEach(playlist => {
+        //create article for each playlist
+        const playlistArticle = document.createElement('article');
+
+        //create title for each playlist
+        const playlistTitle =  document.createElement('h3');
+        playlistTitle.innerHTML = playlist.name;
+
+        //create iframe for each playlist
+        const playlistIframe = document.createElement('iframe');
+
+        //iframe info
+        playlistIframe.src = `https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator`;
+        playlistIframe.loading = "lazy";
+        playlistIframe.setAttribute('frameborder', '0');
+
+
+        // insert title and iframe into article
+        playlistArticle.appendChild(playlistTitle);
+        playlistArticle.appendChild(playlistIframe);
+
+        //insert article into section
+        const playlistSection = document.querySelector('.playlistContainer');
+        playlistSection.appendChild(playlistArticle);
+    });
+};
+
+createPlaylist();
+```
+
 ## Resources
 
 - [Read/Write json files](https://heynode.com/tutorial/readwrite-json-files-nodejs/#:~:text=json%20file%2C%20we%20will%20use,%22fs%22)
@@ -335,3 +396,5 @@ In the end it looked like this:
 - [How to use forEach loop EJS](https://biplabsinha345.medium.com/how-to-use-foreach-loop-in-node-js-template-engine-a460273b652)
 - [Scroll Behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior)
 - [Dall-e](https://openai.com/dall-e-2)
+- [Creating New HTML Elements](https://www.w3schools.com/js/js_htmldom_nodes.asp)
+- [Insert iframe into HTML with Javascript](https://chat.openai.com/share/5eebe267-1e5f-49f8-8e08-a02c68a417c7)
