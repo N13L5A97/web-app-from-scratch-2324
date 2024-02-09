@@ -36,4 +36,39 @@ const createPlaylist = async () => {
     });
 };
 
+
+const fetchUserData = async () => {
+    const userData = await fetch ("./assets/data/data.json");
+    const userDataJson = await userData.json();
+    return userDataJson;
+};
+
+const createUserElements = async () => {
+    const userData = await fetchUserData();
+
+    console.log(userData.work[0].position);
+
+    const userAge = document.createElement('span');
+    userAge.innerHTML = "(" + userData.age + ")";
+
+    const userName = document.createElement('h2');
+    userName.innerHTML = userData.name + " " + userAge.outerHTML;
+
+    const avatar = document.createElement('img');
+    avatar.src = userData.images[0].black;
+    avatar.alt = userData.name;
+
+    const userPosition = document.createElement('p');
+    userPosition.innerHTML = userData.work[0].position;
+
+    const dataContainer = document.querySelector('.userData');
+
+    dataContainer.appendChild(avatar);
+    dataContainer.appendChild(userName);
+    dataContainer.appendChild(userPosition);
+};
+
+
+createUserElements();
+
 createPlaylist();

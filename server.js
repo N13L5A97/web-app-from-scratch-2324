@@ -17,17 +17,9 @@ app.use(express.static("public"));
 app.get("/", async function (req, res) {
   //user data
   const userData = await fetchUserData();
-  const userImage = userData.images[0].black;
   const userSocials = userData.socials;
 
-  console.log("User data: ");
-  console.log(userSocials[0].github);
-
-  //playlists
-  const playlists = await getMyPlaylists();
-  console.log(playlists[0].id);
-
-  res.render("pages/index", { playlists, userData, userImage, userSocials });
+  res.render("pages/index", { userSocials });
 });
 
 // login
@@ -68,14 +60,6 @@ app.listen(port, () => {
 app.get("/playlists", async function (req, res) {
   const playlists = await getMyPlaylists();
   res.json(playlists);
-  // try {
-  //   const playlists = await getPlaylistInfo();
-  //   console.log(playlists);
-  //   res.render("pages/playlists", { playlists });
-  // } catch {
-  //   console.error(error);
-  //   res.status(500).send("Internal Server Error");
-  // }
 });
 
 // FUNCTIONS
