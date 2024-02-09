@@ -5,38 +5,35 @@ const getPlaylists = async () => {
     return playlistsJson;
 };
 
-getPlaylists();
-
 
 const createPlaylist = async () => {
     const playlists = await getPlaylists();
 
     playlists.forEach(playlist => {
-        createPlaylistElement(element);
-    });
-
-    const createPlaylistElement = (element) => {
-        
         //create article for each playlist
         const playlistArticle = document.createElement('article');
 
         //create title for each playlist
         const playlistTitle =  document.createElement('h3');
-        playlistTitle.innerHTML = element.name;
+        playlistTitle.innerHTML = playlist.name;
 
         //create iframe for each playlist
         const playlistIframe = document.createElement('iframe');
 
         //iframe info
-        playlistIframe.src = `https://open.spotify.com/embed/playlist/${element.id}?utm_source=generator`;
+        playlistIframe.src = `https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator`;
         playlistIframe.loading = "lazy";
-        playlistIframe.frameborder = "0";
+        playlistIframe.setAttribute('frameborder', '0');
+
 
         // insert title and iframe into article
-        playlistArticle.appendChild(playlistTitle, playlistIframe);
+        playlistArticle.appendChild(playlistTitle);
+        playlistArticle.appendChild(playlistIframe);
 
         //insert article into section
         const playlistSection = document.querySelector('.playlistContainer');
         playlistSection.appendChild(playlistArticle);
-    }
-}
+    });
+};
+
+createPlaylist();

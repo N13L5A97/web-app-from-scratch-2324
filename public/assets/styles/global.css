@@ -45,6 +45,7 @@ main{
     gap: 3em;
     max-width: calc(100vw - 7em);
     overflow-y: hidden;
+    scroll-behavior: smooth;
 }
 
 main > section{
@@ -142,6 +143,7 @@ ul{
     display: flex;
     gap: 1em;
     flex-wrap: wrap;
+    overflow-y: scroll;
 }
 
 .playlistContainer iframe{
