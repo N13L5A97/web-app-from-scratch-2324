@@ -52,11 +52,11 @@ const createUserElements = async () => {
     userAge.innerHTML = "(" + userData.age + ")";
 
     const userName = document.createElement('h3');
-    userName.innerHTML = userData.name + " " + userAge.outerHTML;
+    userName.innerHTML = userData.firstName + " " + userData.lastName + " " + userAge.outerHTML;
 
     const avatar = document.createElement('img');
-    avatar.src = userData.images[0].black;
-    avatar.alt = userData.name;
+    avatar.src = userData.avatar_url;
+    avatar.alt = userData.firstName;
 
     const userPosition = document.createElement('p');
     userPosition.innerHTML = userData.work[0].position;
