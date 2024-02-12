@@ -51,7 +51,7 @@ const createUserElements = async () => {
     const userAge = document.createElement('span');
     userAge.innerHTML = "(" + userData.age + ")";
 
-    const userName = document.createElement('h2');
+    const userName = document.createElement('h3');
     userName.innerHTML = userData.name + " " + userAge.outerHTML;
 
     const avatar = document.createElement('img');
@@ -68,7 +68,46 @@ const createUserElements = async () => {
     dataContainer.appendChild(userPosition);
 };
 
+const insertSocialLinks = async () => {
+    const userData = await fetchUserData();
+    console.log(userData.socials[0].linkedIn);
 
+    //create a link for github
+    const github = document.createElement('a');
+    github.href = userData.socials[0].github;
+
+    const githubIcon = document.createElement('img');
+    githubIcon.src = "./assets/icons/github_logo.svg";
+    githubIcon.alt = "Github";
+
+    github.appendChild(githubIcon);
+
+    //create a link for linkedin
+    const linkedin = document.createElement('a');
+    linkedin.href = userData.socials[0].linkedIn;
+
+    const linkedinIcon = document.createElement('img');
+    linkedinIcon.src = "./assets/icons/linkedin_logo.svg";
+    linkedinIcon.alt = "Linkedin";
+
+    linkedin.appendChild(linkedinIcon);
+
+    // create a link for discord
+    const discord = document.createElement('a');
+    discord.href = userData.socials[0].discord;
+
+    const discordIcon = document.createElement('img');
+    discordIcon.src = "./assets/icons/discord_logo.svg";
+    discordIcon.alt = "Discord";
+
+    discord.appendChild(discordIcon);
+
+    const socialsSection = document.querySelector('.socials');
+    socialsSection.appendChild(github);
+    socialsSection.appendChild(linkedin);
+    socialsSection.appendChild(discord);
+}
+
+insertSocialLinks();
 createUserElements();
-
 createPlaylist();

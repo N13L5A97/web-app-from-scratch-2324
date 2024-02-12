@@ -15,11 +15,7 @@ app.use(express.static("public"));
 
 // home
 app.get("/", async function (req, res) {
-  //user data
-  const userData = await fetchUserData();
-  const userSocials = userData.socials;
-
-  res.render("pages/index", { userSocials });
+  res.render("pages/index");
 });
 
 // login
@@ -163,13 +159,3 @@ const getMyPlaylists = async () => {
 // };
 
 //fetch data from json file
-
-const fetchUserData = async () => {
-  try {
-    const data = fs.readFileSync("data.json", "utf8");
-    userData = JSON.parse(data);
-    return userData;
-  } catch (error) {
-    console.error(error);
-  }
-};

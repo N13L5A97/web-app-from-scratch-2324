@@ -15,10 +15,6 @@ To make sure I have a clear understanding of what I need to do, I made a breakdo
 
 <img src="./docs/assets/breakdown.png" alt="breakdown sketch" height="300">
 
-For the project we need one or more micro interactions. For that I created a little sketch with an idea for the menu buttons.
-
-<!-- image of sketch -->
-
 ## Node.js, Express and EJS
 
 To make my website dynamic I needed to create a server with Node.js. Bas helped me out with setting this up. I've done it before with block tech but that was a while ago so it was good for me to follow his workshop. We used express as framework and EJS as template engine.
@@ -388,6 +384,162 @@ const createPlaylist = async () => {
 createPlaylist();
 ```
 
+## Styling & Content
+
+After all the data inserting I wanted to focus a little more on styling and content. I used Coolors website to generate a color palette and when I finally found some cool colors I made the regular variables and the dark mode variables for my website.
+
+### Coolors
+
+```css
+  :root{
+    --background-color: #f5f5f5;
+
+    --text-color-primary: #2d3142;
+    --text-color-secondary: #4f5d75;
+
+    --accent-color: #ef8354;
+}
+
+/* dark mode */
+
+@media (prefers-color-scheme: dark){
+    :root{
+        --background-color: #2d3142;
+        --text-color-primary: #f5f5f5;
+        --text-color-secondary: #bfc0c0;
+    }
+}
+```
+
+<img src="./docs/assets/coolors.png" alt="image of color palette" height="100">
+
+### Fonts
+
+I used Roboto as a standard font but wanted something more industrial to fit my color palette. I looked on Google fonts and I didn't took me long to find a good matching font. It's called Rajdhani by [Indian Type Foundry](https://fonts.google.com/?query=Indian%20Type%20Foundry). I used Google Fonts because I think it's the easiest way to import fonts. I also added some fallback fonts in case the the font wasn't found by the browser.
+
+```css
+root{
+   --font-family: 'Rajdhani', 'Roboto', Arial, sans-serif;
+}
+```
+
+### Content
+
+My pages were quite empty still so I had to add some content to make my website more interesting.
+
+#### Footer
+
+I thought of adding content to the socials page but found it more logical to move the social links to the footer. These links were still fetch on the server side so I also changed that. I think the footer looks way better this way.
+
+<img src="./docs/assets/socialsFooter.png" alt="image of footer with socialmedia icons" height="100">
+
+The data was still fetched on the server side so I had to fix that as well. I had some trouble with this because the console.log kept saying "Cannot set properties of null (setting 'href') at insertSocialLinks".
+
+```js
+  const insertSocialLinks = async () => {
+    const userData = await fetchUserData();
+    console.log(userData.socials[0].github);
+
+    const github = document.getElementById('#github');
+    const linkedin = document.getElementById('#linkedin');
+    const discord = document.getElementById('#discord');
+
+    github.href = userData.socials[0].github;
+    linkedin.href = userData.social[0].linkedin;
+    discord.href = userData.social[0].discord;
+}
+```
+
+Since it would be logical to only show the icons in the footer if the links are found I decided to create them all in Javascript.
+
+```js
+  const insertSocialLinks = async () => {
+    const userData = await fetchUserData();
+    console.log(userData.socials[0].linkedIn);
+
+    //create a link for github
+    const github = document.createElement('a');
+    github.href = userData.socials[0].github;
+
+    const githubIcon = document.createElement('img');
+    githubIcon.src = "./assets/icons/github_logo.svg";
+    githubIcon.alt = "Github";
+
+    github.appendChild(githubIcon);
+
+    //create a link for linkedin
+    const linkedin = document.createElement('a');
+    linkedin.href = userData.socials[0].linkedIn;
+
+    const linkedinIcon = document.createElement('img');
+    linkedinIcon.src = "./assets/icons/linkedin_logo.svg";
+    linkedinIcon.alt = "Linkedin";
+
+    linkedin.appendChild(linkedinIcon);
+
+    // create a link for discord
+    const discord = document.createElement('a');
+    discord.href = userData.socials[0].discord;
+
+    const discordIcon = document.createElement('img');
+    discordIcon.src = "./assets/icons/discord_logo.svg";
+    discordIcon.alt = "Discord";
+
+    discord.appendChild(discordIcon);
+
+    const socialsSection = document.querySelector('.socials');
+    socialsSection.appendChild(github);
+    socialsSection.appendChild(linkedin);
+    socialsSection.appendChild(discord);
+}
+```
+
+## Responsiveness
+
+### Playlists
+
+To make my site as accessible as possible I also have to make my site responsive. While developing I already noticed my playlists got in the way when scaling down the screen size so I started with fixing this. I created 2 media queries so the playlists would line up a little better.
+
+```css
+@media (max-width: 1126px){
+    .playlistContainer article{
+        width: 32%;
+    }
+}
+
+@media (max-width: 1030px){
+    .playlistContainer article{
+        width: 45%;
+        height: 20%;
+    }
+}
+```
+
+I remembered this could be done much easier with flex so I looked it up on [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Mastering_wrapping_of_flex_items) and changed it a little. I removed the media queries and added "flex: 1 1 20rem;" to the .playlist article. the first 2 values stand for flex shrink and flex grow and the last value (20em) is flex basis which means that is it's original size. If a article of 20em does not fit on the row it will create another row.
+
+```css
+/* playlist page */
+.playlistContainer{
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.playlistContainer article{
+    flex: 1 1 20rem;
+}
+
+.playlistContainer iframe{
+    height: 100%;
+    width: 100%;
+}
+```
+
+### Sidebar
+
+The second thing I wanted to fix was the side bar. When the screen gets to small the sidebar is to big so I wanted to move this to the top.
+
 ## Resources
 
 - [Read/Write json files](https://heynode.com/tutorial/readwrite-json-files-nodejs/#:~:text=json%20file%2C%20we%20will%20use,%22fs%22)
@@ -398,3 +550,7 @@ createPlaylist();
 - [Dall-e](https://openai.com/dall-e-2)
 - [Creating New HTML Elements](https://www.w3schools.com/js/js_htmldom_nodes.asp)
 - [Insert iframe into HTML with Javascript](https://chat.openai.com/share/5eebe267-1e5f-49f8-8e08-a02c68a417c7)
+- [Prefers Color Scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)
+- [Color Palette Generator](https://coolors.co/2d3142-bfc0c0-ffffff-ef8354-4f5d75)
+- [Rajdhani Font](https://fonts.google.com/specimen/Rajdhani?preview.text=My%20Playlists&preview.size=88&stroke=Sans+Serif&stylecount=3)
+- [MDN - flex wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Mastering_wrapping_of_flex_items)
