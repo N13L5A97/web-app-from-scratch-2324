@@ -1,7 +1,7 @@
 const getPlaylists = async () => {
     const playlists = await fetch("http://localhost:3001/playlists");
     const playlistsJson = await playlists.json();
-    console.log(playlistsJson);
+    // console.log(playlistsJson);
     return playlistsJson;
 };
 
@@ -46,7 +46,7 @@ const fetchUserData = async () => {
 const createUserElements = async () => {
     const userData = await fetchUserData();
 
-    console.log(userData.work[0].position);
+    console.log(userData.bio);
 
     const userAge = document.createElement('span');
     userAge.innerHTML = "(" + userData.age + ")";
@@ -62,15 +62,20 @@ const createUserElements = async () => {
     userPosition.innerHTML = userData.work[0].position;
 
     const dataContainer = document.querySelector('.userData');
+    const bio = document.createElement('p');
+    bio.innerHTML = userData.bio;
 
     dataContainer.appendChild(avatar);
     dataContainer.appendChild(userName);
     dataContainer.appendChild(userPosition);
+
+    const bioContainer = document.querySelector('.bio');
+    bioContainer.appendChild(bio);
 };
 
 const insertSocialLinks = async () => {
     const userData = await fetchUserData();
-    console.log(userData.socials[0].linkedIn);
+    // console.log(userData.socials[0].linkedIn);
 
     //create a link for github
     const github = document.createElement('a');
