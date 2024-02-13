@@ -38,7 +38,7 @@ body{
 header{
     position: fixed;
     height: 100%;
-    width: 7em;
+    width: 5em;
     background-color: var(--accent-color);
 }
 
@@ -65,15 +65,15 @@ h1{
 }
 
 h2{
-    font-size: 6rem;
+    font-size: 4rem;
 }
 
 main{
-    margin: 3em 0 0 7em;
-    padding-left: 4em;
+    margin: 3em 0 0 5em;
+    padding-left: 2em;
     display: flex;
     gap: 3em;
-    max-width: calc(100vw - 7em);
+    max-width: calc(100vw - 5em);
 
     overflow-y: hidden;
     overflow-x: hidden;
@@ -84,7 +84,7 @@ main > section{
     scroll-margin-left: 2em;
     display: flex;
     flex-direction: column;
-    padding-right: 4em;
+    padding-right: 2em;
     min-width: calc(100vw - 8em);
     min-height: calc(100vh - 7em - 5em);
 }
@@ -98,7 +98,7 @@ main > section{
 }
 
 footer{
-    padding: 1em 3em 1em 10em;
+    padding: 1em 3em 1em 8em;
     height: 5em;
     display: flex;
     justify-content: space-between;
@@ -169,6 +169,33 @@ ul{
     width: 100%;
 }
 
+input{
+    display: none;
+}
+
+.switch{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin: 1em;
+    z-index: 5;
+    width: 3em;
+    height: 1.5em;
+    border-radius: 10em;
+    background-color: var(--text-color-primary);
+}
+
+.switch:before{
+    content: '';
+    position: absolute;
+    left: 1px;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    transition: transform .3s;
+}
+
 /* micro interactions */
 
 nav li:hover, aside li:hover{
@@ -224,6 +251,7 @@ footer a:hover{
         padding-right: 0;
         min-width: 100vw;
         scroll-margin: 0;
+        min-width: calc(100vw - 4em);
     }
 
     footer{
