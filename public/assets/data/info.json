@@ -54,7 +54,12 @@
         "Coding",
         "Gaming",
         "Watching Anime",
-        "Drumming"
+        "Drumming",
+        "Guitar",
+        "Volleyball",
+        "Basketball",
+        "Skateboarding",
+        "Lego"
     ],
     "socials": [
         {
@@ -63,15 +68,9 @@
             "discord": "http://discordapp.com/users/767661823855034368"
         }
     ],
-    "images": [
-        {
-            "transparent": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
-            "black": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_black.png"
-        }
-    ],
     "truthsAndLies":[
-        "1",
-        "2",
-        "3"
+        "I have 5 missing teeth",
+        "I can solve a Rubiks cube",
+        "I have played professional handball"
     ]
 }

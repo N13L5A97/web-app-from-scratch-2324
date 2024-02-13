@@ -1,6 +1,4 @@
 require("dotenv").config();
-const fs = require("fs");
-const querystring = require("querystring");
 
 const express = require("express");
 const app = express();
@@ -9,6 +7,9 @@ const port = process.env.PORT;
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = `http://localhost:${port}/callback`;
+
+const fs = require("fs");
+const querystring = require("querystring");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
