@@ -7,6 +7,7 @@
     --text-color-secondary: #4f5d75;
 
     --accent-color: #ef8354;
+    --secondary-accent-color: #f5bca4;
 
     --font-family: 'Rajdhani', 'Roboto', Arial, sans-serif;
     --border-radius: .75rem;
@@ -170,31 +171,11 @@ ul{
 }
 
 input{
-    display: none;
+    height: 0;
+    width: 0;
+    visibility: hidden;
 }
 
-.switch{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    margin: 1em;
-    z-index: 5;
-    width: 3em;
-    height: 1.5em;
-    border-radius: 10em;
-    background-color: var(--text-color-primary);
-}
-
-.switch:before{
-    content: '';
-    position: absolute;
-    left: 1px;
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 50%;
-    background-color: var(--accent-color);
-    transition: transform .3s;
-}
 
 /* micro interactions */
 

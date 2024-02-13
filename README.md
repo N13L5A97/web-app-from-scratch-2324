@@ -73,7 +73,7 @@ When you are logged in Spotify will redirect you back to the callback page:
 
 #### Fetch Playlists
 
-I didn't need a login page, but wanted to fetch my playlists. To do this I needed a Spotify token which is requested in the top of the getMyPlaylists function. When I have a token I am allowed to make requests. In this request I fetch all the public playlists of my account which is done with this url: "https://api.spotify.com/v1/users/niels.aling/playlists". After fetching I put the data I need in the variable "playlistItems" and return this so I can give this dat to the front-end. 
+I didn't need a login page, but wanted to fetch my playlists. To do this I needed a Spotify token which is requested in the top of the getMyPlaylists function. When I have a token I am allowed to make requests. In this request I fetch all the public playlists of my account which is done with this url: "<https://api.spotify.com/v1/users/niels.aling/playlists>". After fetching I put the data I need in the variable "playlistItems" and return this so I can give this dat to the front-end.
 
 ```js
 // spotify token
@@ -600,7 +600,55 @@ footer a:hover{
 
 <img src="./docs/assets/navButtons.png" alt="image of nav buttons on hover" height="200">
 
+## DarkMode Switch
 
+I wanted to implement a dark mode switch with a checkbox input. I have styled checkboxes before but this was a long time ago so I struggled a lot.
+
+```html
+  <label for="darkmode-toggle">
+    <input type="checkbox" id="darkmode-toggle">
+  </label>
+```
+
+```css
+label {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 5;
+    margin: 1em;
+    width: 3em;
+    height: 1.5em;
+    border-radius: 10em;
+    background-color: var(--text-color-primary);
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 -5px 15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: .3s;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    left: 1.5px;
+    top: 1.5px;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--accent-color), var(--secondary-accent-color));
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform .3s; /* Include the transition property here */
+}
+
+input:checked + label {
+    background-color: var(--accent-color);
+}
+
+input:checked + label:after {
+    right: 1.5px; 
+    left: auto;
+    transform: translateX(100%); 
+}
+```
 
 ## Resources
 
@@ -616,3 +664,4 @@ footer a:hover{
 - [Color Palette Generator](https://coolors.co/2d3142-bfc0c0-ffffff-ef8354-4f5d75)
 - [Rajdhani Font](https://fonts.google.com/specimen/Rajdhani?preview.text=My%20Playlists&preview.size=88&stroke=Sans+Serif&stylecount=3)
 - [MDN - flex wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Mastering_wrapping_of_flex_items)
+- [Checkbox Switch Tutorial](https://www.youtube.com/watch?v=S-T9XoCMwt4)
