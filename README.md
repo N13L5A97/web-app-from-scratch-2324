@@ -572,6 +572,34 @@ The second thing I wanted to fix was the side bar. When the screen gets to small
 
 ## Micro Interactions
 
+To begin with I needed some hover state interactions for the menu buttons and footer links.
+
+### Initial Idea
+
+I wanted to scale the items a little bit and display the name below so the user knows what the buttons are for.
+
+<img src="" alt="sketch of micro interaction">
+
+### Realization
+
+When I added the box shadow styling something weird happened but I actually liked it so I wanted to leave it like this and add some other micro interactions instead.
+
+```css
+  nav li:hover, aside li:hover{
+    box-shadow: 6px 6px var(--text-color-primary);
+    transform: scale(1.1);
+
+    transition: transform .3s;
+}
+
+footer a:hover{
+    transform: scale(1.1);
+    transition: transform .3s;
+}
+```
+
+<img src="./docs/assets/navButtons.png" alt="image of nav buttons on hover" height="200">
+
 
 
 ## Resources
