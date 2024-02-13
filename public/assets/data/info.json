@@ -1,0 +1,77 @@
+{
+    "firstName": "Niels",
+    "lastName": "Aling",
+    "avatar_url": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
+    "age": "26",
+    "city": "Amsterdam",
+    "favouriteAnimal": "Lion",
+    "bio":[
+        "I'm a 26 year old communication and multimedia student at Hogeschool van Amsterdam.",
+        "Currently I am in my 3th year and I'm specializing in front-end development.",
+        "I'm also a musician and I love to play guitar and drums.",
+        "In my free time I love to watch anime and play video games."
+    ],
+    "languages": [
+        "Dutch",
+        "English"
+    ],
+    "education": [
+        {
+            "school": "Hogeschool Rotterdam",
+            "degree": "Bachelor of Science",
+            "field": "Communication and Multimedia Design"
+        }
+    ],
+    "work": [
+        {
+            "company": "aardig",
+            "position": "Front-end Developer",
+            "duration": "2023 - Present"
+        }
+    ],
+    "programming languages": [
+        "Python",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "C++"
+    ],
+    "tools": [
+        "VSCode",
+        "Git",
+        "GitHub",
+        "Node.js",
+        "MongoDB",
+        "React",
+        "Express",
+        "Next.js",
+        "Figma",
+        "Adobe CC",
+        "Miro",
+        "Webflow"
+    ],
+    "hobbies": [
+        "Coding",
+        "Gaming",
+        "Watching Anime",
+        "Drumming"
+    ],
+    "socials": [
+        {
+            "github": "https://github.com/N13L5A97",
+            "linkedIn": "https://www.linkedin.com/in/niels-aling/",
+            "discord": "http://discordapp.com/users/767661823855034368"
+        }
+    ],
+    "images": [
+        {
+            "transparent": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_transparent.png",
+            "black": "https://raw.githubusercontent.com/N13L5A97/web-app-from-scratch-2324/main/public/assets/images/avatar_black.png"
+        }
+    ],
+    "truthsAndLies":[
+        "1",
+        "2",
+        "3"
+    ]
+}
