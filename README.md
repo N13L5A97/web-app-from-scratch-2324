@@ -538,7 +538,41 @@ I remembered this could be done much easier with flex so I looked it up on [MDN]
 
 ### Sidebar
 
-The second thing I wanted to fix was the side bar. When the screen gets to small the sidebar is to big so I wanted to move this to the top.
+The second thing I wanted to fix was the side bar. When the screen gets to small the sidebar is to big so I wanted to move this to the top. I copied the elements of the aside and put this in a navbar that is on display: none on desktop size and when the screensize is smaller than 860px the navbar will show on top of the page.
+
+```css
+  @media (max-width: 860px){
+    nav{
+        display: flex;
+        height: 100%;
+    }
+
+    aside{
+        display: none;
+    }
+
+    header{
+        width: 100%;
+        height: 5em;
+    }
+
+    main{
+        margin: 7em 2em 0 2em;
+        padding-left: 0;
+        max-width: 100vw;
+    }
+
+    main > section{
+        padding-right: 0;
+        min-width: 100vw;
+        scroll-margin: 0;
+    }
+  }
+```
+
+## Micro Interactions
+
+
 
 ## Resources
 

@@ -169,6 +169,22 @@ ul{
     width: 100%;
 }
 
+/* micro interactions */
+
+nav li:hover, aside li:hover{
+    box-shadow: 6px 6px var(--text-color-primary);
+    transform: scale(1.1);
+
+    transition: transform .3s;
+}
+
+footer a:hover{
+    transform: scale(1.1);
+    transition: transform .3s;
+}
+
+
+
 /* dark mode */
 
 @media (prefers-color-scheme: dark){
