@@ -394,3 +394,132 @@ const createUserElements = async () => {
 ```
 
 ## Fetch and Insert Spotify Playlists
+
+Read the [Spotify Documentation](https://developer.spotify.com/documentation/web-api/tutorials/getting-started) to get started with this API.
+
+To fetch the playlists we need to create a spotify app at the [Spotify Dashboard](https://developer.spotify.com/dashboard).
+
+App Name: My App
+App Description: This is my first Spotify app
+Redirect URI: You won't need this parameter in this example, so let's use http://localhost:3000.
+
+To request a token we need a client secret and a client_id. You can find this in the settings of your spotify app at your dashboard.
+
+<img src="./docs/assets/spotifySettings.png" alt="screenshot of spotify settings with client_id and client-secret">
+
+Keep this information to yourself! Especially your client_secret and put this in your .env file.
+
+```env
+SPOTIFY_CLIENT_ID = ""
+SPOTIFY_CLIENT_SECRET = ""
+```
+
+With this information we can request a token:
+
+*server.js*
+
+```js
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+
+// spotify token
+var authOptions = {
+  url: "https://accounts.spotify.com/api/token",
+  headers: {
+    Authorization:
+      "Basic " +
+      new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+    "Content-type": "application/x-www-form-urlencoded",
+  },
+  form: {
+    grant_type: "client_credentials",
+  },
+  json: true,
+};
+```
+
+Every time we want to get our playlists we have to request this token because it expires in 3600 seconds. So in our function we will start by requesting this token. After we gain access we fetch the playlists (in this case my playlists) and put this in a json format. When this is done we return the data.
+
+```js
+// using the token to get all playlists
+const getMyPlaylists = async () => {
+  const response = await fetch(authOptions.url, {
+    method: "POST",
+    body: querystring.stringify(authOptions.form),
+    headers: authOptions.headers,
+  });
+
+  const token = await response.json();
+
+  const playlists = await fetch(
+    "https://api.spotify.com/v1/users/niels.aling/playlists",
+    {
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+      },
+    }
+  );
+
+  const playlistsJson = await playlists.json();
+  const playlistItems = playlistsJson.items;
+
+  return playlistItems;
+};
+```
+
+We don't want to render this with the page but we want to make this request in the front-end. For that we do need an endpoint. In this case me make that endpoint /playlists. When the front-end will request this url it will await the getMyPlaylists function and return the data.
+
+```js
+// used by front-end to get all playlists
+app.get("/playlists", async function (req, res) {
+  const playlists = await getMyPlaylists();
+  res.json(playlists);
+});
+```
+
+In the front-end we can now make a get request to the backend with this endpoint.
+
+*script.js*
+
+```js
+const getPlaylists = async () => {
+    const playlists = await fetch("http://localhost:3001/playlists");
+    const playlistsJson = await playlists.json();
+    // console.log(playlistsJson);
+    return playlistsJson;
+};
+```
+
+With this data we can now create a Spotify embed for each playlist. We have to get the data from the function and then for each playlist we need to create an article, a h3 heading and an iframe element. We give the h3 element the name of the playlist and add the iframe attributes with a dynamic src. This is the id of the playlist. After that we can insert the title and the iframe into the article and the article into the playlist container in the html.
+
+```js
+const createPlaylist = async () => {
+    const playlists = await getPlaylists();
+
+    playlists.forEach(playlist => {
+        //create article for each playlist
+        const playlistArticle = document.createElement('article');
+
+        //create title for each playlist
+        const playlistTitle =  document.createElement('h3');
+        playlistTitle.innerHTML = playlist.name;
+
+        //create iframe for each playlist
+        const playlistIframe = document.createElement('iframe');
+
+        //iframe info
+        playlistIframe.src = `https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator`;
+        playlistIframe.loading = "lazy";
+        playlistIframe.setAttribute('frameborder', '0');
+
+
+        // insert title and iframe into article
+        playlistArticle.appendChild(playlistTitle);
+        playlistArticle.appendChild(playlistIframe);
+
+        //insert article into section
+        const playlistSection = document.querySelector('.playlistContainer');
+        playlistSection.appendChild(playlistArticle);
+    });
+};
+```

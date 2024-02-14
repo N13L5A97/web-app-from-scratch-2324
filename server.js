@@ -6,10 +6,7 @@ const port = process.env.PORT;
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = `http://localhost:${port}/callback`;
-
-const fs = require("fs");
-const querystring = require("querystring");
+// const redirect_uri = `http://localhost:${port}/callback`;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -19,41 +16,43 @@ app.get("/", async function (req, res) {
   res.render("pages/index");
 });
 
-// login
-app.get("/login", function (req, res) {
-  try {
-    var scope = "user-read-private user-read-email";
+//not used
+// // login
+// app.get("/login", function (req, res) {
+//   try {
+//     var scope = "user-read-private user-read-email";
 
-    res.redirect(
-      "https://accounts.spotify.com/authorize?" +
-        querystring.stringify({
-          response_type: "code",
-          client_id: client_id,
-          scope: scope,
-          redirect_uri: redirect_uri,
-        })
-    );
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+//     res.redirect(
+//       "https://accounts.spotify.com/authorize?" +
+//         querystring.stringify({
+//           response_type: "code",
+//           client_id: client_id,
+//           scope: scope,
+//           redirect_uri: redirect_uri,
+//         })
+//     );
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
-// callback after login
-app.get("/callback", async function (req, res) {
-  try {
-    return res.send("You are logged in");
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+// // callback after login
+// app.get("/callback", async function (req, res) {
+//   try {
+//     return res.send("You are logged in");
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-// not used
+
+// used by front-end to get all playlists
 app.get("/playlists", async function (req, res) {
   const playlists = await getMyPlaylists();
   res.json(playlists);
@@ -100,6 +99,9 @@ const getMyPlaylists = async () => {
 
   return playlistItems;
 };
+
+
+
 
 //get id's of all the playlists (NOT USED)
 
@@ -158,5 +160,3 @@ const getMyPlaylists = async () => {
 //     // console.log(playlists);
 //     return playlists;
 // };
-
-//fetch data from json file
