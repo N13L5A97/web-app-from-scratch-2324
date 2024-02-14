@@ -134,10 +134,14 @@ ul{
 /* aside / menu */
 .iconContainer{
     border-radius: 50%;
-    width: 30%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+nav .iconContainer{
+    width: 25%;
 }
 
 .iconContainer a{
