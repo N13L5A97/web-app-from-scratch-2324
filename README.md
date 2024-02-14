@@ -523,3 +523,306 @@ const createPlaylist = async () => {
     });
 };
 ```
+
+## Styling
+
+Last but not least we have to create some styling to make the website look a little cool. At the top of the page I import a cool font [Rajdhani](https://fonts.google.com/specimen/Rajdhani?preview.text=My%20Playlists&preview.size=88&stroke=Sans+Serif&stylecount=3) by [Indian Type Foundry](https://fonts.google.com/?query=Indian%20Type%20Foundry).
+
+I make a couple variables for colors, font-family and a border-radius in case I want to change these.
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap');
+
+:root{
+    --background-color: #f5f5f5;
+
+    --text-color-primary: #2d3142;
+    --text-color-secondary: #4f5d75;
+
+    --accent-color: #ef8354;
+    --secondary-accent-color: #f5bca4;
+
+    --font-family: 'Rajdhani', 'Roboto', Arial, sans-serif;
+    --border-radius: .75rem;
+}
+```
+
+Before styling I make sure all the margin, padding and box-sizing are "reset" and the html scroll behavior is on scroll.
+
+```css
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+```
+
+In the body I give the font-family I just imported and make sure the items are displayed from top to bottom with flex-direction: column. I give the body a max-height of 100vh so it will never be scrollable. Here I also give the background color and the primary text color.
+
+```css
+body{
+    font-family: var(--font-family);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2em;
+    max-height: 100vh;
+
+    background-color: var(--background-color);
+    color: var(--text-color-primary);
+}
+```
+
+In this part I make the header fixed so it can not ever move. I also give it another background color so it stands out more. I make the nav invisible because this only needs to be visible on smaller screens. I make sure the items in the aside are below each other.
+
+```css
+header{
+    position: fixed;
+    height: 100%;
+    width: 5em;
+    background-color: var(--accent-color);
+}
+
+nav{
+    display: none;
+}
+
+aside{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+aside ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+}
+```
+
+
+I give the h1 (the title) a visibility hidden so a screen reader can still read this but it's not visible for the user. And all the h2 heading a fon-t size of 4 em.
+
+```css
+h1{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+
+h2{
+    font-size: 4rem;
+}
+```
+
+Here I give all the sections a marin on top so it has a little bit space on top and on the left so it does not collide with the aside element. I make the max-with the size of the screen minus the aside and everything that overflow the main will be hidden. The sections inside the main have a little extra margin in the left when je user scrolls to it.
+
+```css
+main{
+    margin: 3em 0 0 5em;
+    padding-left: 2em;
+    display: flex;
+    gap: 3em;
+    max-width: calc(100vw - 5em);
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+main > section{
+    scroll-margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2em;
+    min-width: calc(100vw - 8em);
+    min-height: calc(100vh - 7em - 5em);
+}
+```
+The footer also needs to have a little more spacing because of the aside and with the justify content I make sure the socials and the copyright text are push away from each other.
+
+```css
+footer{
+    padding: 1em 3em 1em 8em;
+    height: 5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+```
+
+The socials in the footer are given the same height and width and placed next to each other.
+
+```css
+.socials img{
+    height: 2em;
+    width: 2em;
+}
+
+.socials{
+    display: flex;
+    gap: 1em;
+}
+
+ul{
+    list-style: none;
+}
+```
+
+Here we make the avatar round and give it the same height and width.
+
+```css
+.userData img{
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+}
+```
+
+For the aside / menu we make the icon containers a little round. and make tuse that the icons are centered.
+
+```css
+/* aside / menu */
+.iconContainer{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconContainer a{
+    height: min-content;
+}
+
+.iconContainer img{
+    max-height: 2.5em;
+}
+```
+
+Here me make sure the playliste wrap to another row when it is so full. We tell the articles that the prefered size is 20rem and that it can shrink and grow to fit its container.
+
+```css
+/* playlist page */
+.playlistContainer{
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.playlistContainer article{
+    flex: 1 1 20rem;
+}
+
+.playlistContainer iframe{
+    height: 100%;
+    width: 100%;
+}
+```
+
+### Micro Interactions
+
+Here we give the buttons a little micro-interaction. Since we made the icon containers round the box-shadow wil also be round and will create a fun effect.
+
+```css
+/* micro interactions */
+
+nav li:hover, aside li:hover{
+    box-shadow: 6px 6px var(--text-color-primary);
+    transform: scale(1.1);
+
+    transition: transform .3s;
+}
+
+footer a:hover{
+    transform: scale(1.1);
+    transition: transform .3s;
+}
+```
+
+### Dark Mode
+
+In this part we change some of the root colors so when the preferred color schema is on dark mode some colors are inverted.
+
+```css
+/* dark mode */
+
+@media (prefers-color-scheme: dark){
+    :root{
+        --background-color: #2d3142;
+        --text-color-primary: #f5f5f5;
+        --text-color-secondary: #bfc0c0;
+
+    }
+}
+```
+
+### Responsiveness
+
+To make sure the website is also accessible on mobile phones we create a media query. I tell it that when the screen size is smaller than 860px it has to show the nav in stead of the aside.
+
+```css
+/* responsive */
+
+@media (max-width: 860px){
+    nav{
+        display: flex;
+        height: 100%;
+        justify-content: space-evenly;
+    }
+
+    aside{
+        display: none;
+    }
+
+    header{
+        width: 100%;
+        height: 5em;
+    }
+```
+
+It also changes the margin around the sections and the footer because it has more room without the aside next to it.
+
+```css
+    main{
+        margin: 7em 2em 0 2em;
+        padding-left: 0;
+        max-width: 100vw;
+    }
+
+    main > section{
+        padding-right: 0;
+        min-width: 100vw;
+        scroll-margin: 0;
+        min-width: calc(100vw - 4em);
+    }
+
+    footer{
+        padding: 1em 2em;
+    }
+
+```
+
+For the playlist container I tell it to show all the playlist below each other because there is not enough space to show them next to each other.
+
+```css
+    .playlistContainer{
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-y: scroll;
+    }
+
+    .playlistContainer article{
+      height: 10em;
+      flex: none;
+    }
+}
+```
