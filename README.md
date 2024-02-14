@@ -321,3 +321,76 @@ To embed a Google Maps location you go your location of choice and click the sha
 <img src="./docs/assets/embedMap.png" alt="screenshot of nasa location in google maps" height="300">
 <img src="./docs/assets/embedHtml.png" alt="screenshot of how to embed location" height="300">
 
+## Fetch and Insert User Data
+
+Now we have a place to insert the user data, but before we can insert it we have to fetch it.
+We do this in a script file in the front-end. For this we make another folder in the public folder called scripts. In this folder we will create a file called script.js and import is in the index.ejs on the bottom of the body tag
+
+```html
+  <!-- Rest of the code -->
+  <script src="./assets/scripts/script.js"></script>
+</body>
+```
+
+In the script.js file we will fetch the user data we created earlier from info.json.
+
+```js
+const fetchUserData = async () => {
+    const userData = await fetch ("./assets/data/info.json");
+    const userDataJson = await userData.json();
+    return userDataJson;
+};
+```
+
+### Create User Elements
+
+With the user data we can do multiple things. In this part we will create the elements for the "who am I" section. In the top of the function we fetch the user data from the json file.
+
+With document.create element we can create the elements we need for the user page, with innerHTML we can insert text and other elements into the the elements.
+
+When we want to insert certain data into elements like an image source we can use element.src = "src".
+
+To insert all the data in de right place we can find elements by using the query selector. When our script knows where these elements are we can use append.child to insert the created elements.
+
+```js
+const createUserElements = async () => {
+    // fetch user data
+    const userData = await fetchUserData();
+
+    console.log(userData.bio);
+
+    // create span for user age and put age between ()
+    const userAge = document.createElement('span');
+    userAge.innerHTML = "(" + userData.age + ")";
+
+    // create h3 for user name
+    // insert first name, last name and age into the username
+    const userName = document.createElement('h3');
+    userName.innerHTML = userData.firstName + " " + userData.lastName + " " + userAge.outerHTML;
+
+    // create img for avatar and add src and alt
+    const avatar = document.createElement('img');
+    avatar.src = userData.avatar_url;
+    avatar.alt = userData.firstName;
+
+    // create p for user work position and insert data
+    const userPosition = document.createElement('p');
+    userPosition.innerHTML = userData.work[0].position;
+
+    // create p for user bio and insert data
+    const dataContainer = document.querySelector('.userData');
+    const bio = document.createElement('p');
+    bio.innerHTML = userData.bio;
+
+    // put avatar, userName and position into data container
+    dataContainer.appendChild(avatar);
+    dataContainer.appendChild(userName);
+    dataContainer.appendChild(userPosition);
+
+    // insert bio in bio section
+    const bioContainer = document.querySelector('.bio');
+    bioContainer.appendChild(bio);
+};
+```
+
+## Fetch and Insert Spotify Playlists
