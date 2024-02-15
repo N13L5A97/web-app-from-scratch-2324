@@ -1,5 +1,5 @@
 const getPlaylists = async () => {
-    const playlists = await fetch("http://localhost:3001/playlists");
+    const playlists = await fetch("/playlists");
     const playlistsJson = await playlists.json();
     // console.log(playlistsJson);
     return playlistsJson;
